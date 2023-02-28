@@ -6,9 +6,9 @@
   "packageName": "MS600_TEAMS_MSG_EXT",
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
-    "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
-    "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
+    "websiteUrl": "https://4cc4-95-74-29-201.ngrok.io",
+    "privacyUrl": "https://4cc4-95-74-29-201.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://4cc4-95-74-29-201.ngrok.io/tou.html"
   },
   "name": {
     "short": "MS600_TEAMS_MSG_EXT",
@@ -51,7 +51,7 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "{{PUBLIC_HOSTNAME}}"
+    "4cc4-95-74-29-201.ngrok.io"
   ],
   "showLoadingIndicator": true
 }

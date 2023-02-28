@@ -6,6 +6,9 @@ import { MsTeamsApiRouter, MsTeamsPageRouter } from "express-msteams-host";
 import * as debug from "debug";
 import * as compression from "compression";
 
+import { BotFrameworkAdapter, CloudAdapter, ConfigurationBotFrameworkAuthentication, ConfigurationServiceClientCredentialFactory } from "botbuilder";
+import { PlanetBot }    from "./planetBot/planetBot";
+
 // Initialize debug logging module
 const log = debug("msteams");
 
@@ -65,4 +68,35 @@ express.set("port", port);
 // Start the webserver
 http.createServer(express).listen(port, () => {
     log(`Server running on ${port}`);
+});
+
+// register and load the bot
+// const botAdapter = new CloudAdapter(new ConfigurationBotFrameworkAuthentication(
+//     {},
+//     new ConfigurationServiceClientCredentialFactory({
+//         MicrosoftAppId: process.env.MICROSOFT_APP_ID,
+//         MicrosoftAppPassword: process.env.MICROSOFT_APP_PASSWORD,
+//         MicrosoftAppType: "MultiTenant",
+//     })
+// ));
+
+const botAdapter = new BotFrameworkAdapter({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+  });
+
+// configure what happens when there is an unhandled error by the bot
+botAdapter.onTurnError = async (context, error) => {
+console.error(`\n [bot.onTurnError] unhandled error: ${error}`);
+    await context.sendTraceActivity("OnTurnError Trace", `${error}`, "https://www.botframework.com/schemas/error", "TurnError");
+    await context.sendActivity("bot error");
+};
+
+// run the bot when messages are received on the specified path
+const bot = new PlanetBot();
+express.post("/api/messages", (request, response) => {
+    botAdapter.process(request, response, async (context) => {
+        console.log("CIAO");
+        await bot.run(context);
+    });
 });
