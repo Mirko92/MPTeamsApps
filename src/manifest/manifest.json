@@ -28,10 +28,12 @@
   "bots": [],
   "connectors": [],
   "composeExtensions": [
+
     {
       "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
       "canUpdateConfiguration": false,
       "commands": [
+        // ACTION command messaging extensions
         {
           "id": "planetExpanderAction",
           "type": "action",
@@ -42,9 +44,27 @@
             "message"
           ],
           "fetchTask": true
+        },
+
+        // SEARCH command messaging extensions
+        {
+          "id": "planetExpanderSearch",
+          "type": "query",
+          "title": "Planet Lookup",
+          "description": "Search for a planet.",
+          "context": [
+            "compose"
+          ],
+          "parameters": [{
+            "title": "Planet",
+            "name": "searchKeyword",
+            "description": "Enter 'inner','outer' or the name of a specific planet"
+          }],
+          "initialRun": false
         }
       ]
     }
+    
   ],
   "permissions": [
     "identity",

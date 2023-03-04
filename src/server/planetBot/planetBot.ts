@@ -6,7 +6,9 @@ import {
   MessageFactory,
   MessagingExtensionAction, 
   MessagingExtensionActionResponse, 
-  MessagingExtensionAttachment
+  MessagingExtensionAttachment,
+  MessagingExtensionQuery,
+  MessagingExtensionResponse
 } from "botbuilder";
 
 import * as Util from "util";
@@ -17,6 +19,7 @@ const log = debug("msteams");
 
 export class PlanetBot extends TeamsActivityHandler {
 
+  //#region ACTION
 
   protected handleTeamsMessagingExtensionFetchTask(context: TurnContext, action: MessagingExtensionAction): Promise<MessagingExtensionActionResponse> {
     console.log("handleTeamsMessagingExtensionFetchTask")
@@ -52,9 +55,6 @@ export class PlanetBot extends TeamsActivityHandler {
   
     return Promise.resolve(response);
   }
-
-
-
 
   protected handleTeamsMessagingExtensionSubmitAction(context: TurnContext, action: MessagingExtensionAction): Promise<MessagingExtensionActionResponse> {
     console.log("handleTeamsMessagingExtensionSubmitAction")
@@ -102,6 +102,57 @@ export class PlanetBot extends TeamsActivityHandler {
     // return the adaptive card
     return CardFactory.adaptiveCard(adaptiveCardSource);
   }
+
+  //#endregion
+
+
+  //#region SEARCH
+
+  protected handleTeamsMessagingExtensionQuery(context: TurnContext, query: MessagingExtensionQuery): Promise<MessagingExtensionResponse> {
+    // get the search query
+    let searchQuery = "";
+    if (
+        query?.parameters &&
+        query.parameters[0].name === "searchKeyword" &&
+        query.parameters[0].value) {
+      searchQuery = query.parameters[0].value.trim().toLowerCase();
+    }
+
+    // execute search logic
+    let queryResults: string[] = ...;
+
+    // get results as cards
+    let searchResultsCards: MessagingExtensionAttachment[] = [];
+    queryResults.forEach((planet) => {
+      searchResultsCards.push(this.getPlanetResultCard(planet));
+    });
+
+    /**
+     * The type property can be one of the following options:
+     *  - result:   displays a list of the search results
+     *  - message:  displays a plain text message
+     *  - auth:     prompts the user to authenticate
+     *  - config:   prompts the user to set up the messaging extension
+     * 
+     * If type is set to message, an extra property text can be used to set the plain text message displayed.
+     * 
+     * The attachmentLayout property can be either a list of results containing thumbnails, titles and text fields, 
+     * or a grid of thumbnail images.
+     * 
+     * When type is set to auth or config, use the suggestedActions property to suggest extra actions to do.
+     */
+    let response: MessagingExtensionResponse = <MessagingExtensionResponse>{
+      composeExtension: {
+        type: "result",
+        attachmentLayout: "list",
+        attachments: searchResultsCards
+      }
+    };
+
+    return Promise.resolve(response);
+  }
+
+  //#endregion
 }
 
 

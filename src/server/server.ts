@@ -71,19 +71,21 @@ http.createServer(express).listen(port, () => {
 });
 
 // register and load the bot
-// const botAdapter = new CloudAdapter(new ConfigurationBotFrameworkAuthentication(
-//     {},
-//     new ConfigurationServiceClientCredentialFactory({
-//         MicrosoftAppId: process.env.MICROSOFT_APP_ID,
-//         MicrosoftAppPassword: process.env.MICROSOFT_APP_PASSWORD,
-//         MicrosoftAppType: "MultiTenant",
-//     })
-// ));
+const botAdapter = new CloudAdapter(
+    new ConfigurationBotFrameworkAuthentication(
+        {},
+        new ConfigurationServiceClientCredentialFactory({
+            MicrosoftAppId: process.env.MICROSOFT_APP_ID,
+            MicrosoftAppPassword: process.env.MICROSOFT_APP_PASSWORD,
+            MicrosoftAppType: "MultiTenant",
+        })
+    )
+);
 
-const botAdapter = new BotFrameworkAdapter({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
-  });
+// const botAdapter = new BotFrameworkAdapter({
+//     appId: process.env.MICROSOFT_APP_ID,
+//     appPassword: process.env.MICROSOFT_APP_PASSWORD
+//   });
 
 // configure what happens when there is an unhandled error by the bot
 botAdapter.onTurnError = async (context, error) => {
