@@ -1,0 +1,43 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+      {
+          "type": "Container",
+          "items": [
+              {
+                  "type": "ColumnSet",
+                  "columns": [
+                      {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                              {
+                                  "type": "Image",
+                                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Mercury_in_color_-_Prockter07-edit1.jpg"
+                              }
+                          ]
+                      },
+                      {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                              {
+                                  "type": "TextBlock",
+                                  "text": "MERCURIO",
+                                  "wrap": true
+                              },
+                              {
+                                  "type": "TextBlock",
+                                  "text": "Descrizione del pianeta molto lunga probabilmente va a capo",
+                                  "wrap": true
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      }
+  ]
+}

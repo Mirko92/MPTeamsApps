@@ -7,7 +7,7 @@ import * as debug from "debug";
 import * as compression from "compression";
 
 import { BotFrameworkAdapter, CloudAdapter, ConfigurationBotFrameworkAuthentication, ConfigurationServiceClientCredentialFactory } from "botbuilder";
-import { PlanetBot }    from "./planetBot/planetBot";
+import { PlanetBot } from "./planetBot/planetBot";
 
 // Initialize debug logging module
 const log = debug("msteams");
@@ -43,8 +43,8 @@ express.use(morgan("tiny"));
 express.use(compression());
 
 // Add /scripts and /assets as static folders
-express.use("/scripts", Express.static(path.join(__dirname, "web/scripts")) );
-express.use("/assets",  Express.static(path.join(__dirname, "web/assets"))  );
+express.use("/scripts", Express.static(path.join(__dirname, "web/scripts")));
+express.use("/assets", Express.static(path.join(__dirname, "web/assets")));
 
 // routing for bots, connectors and incoming web hooks - based on the decorators
 // For more information see: https://www.npmjs.com/package/express-msteams-host
@@ -89,7 +89,7 @@ const botAdapter = new CloudAdapter(
 
 // configure what happens when there is an unhandled error by the bot
 botAdapter.onTurnError = async (context, error) => {
-console.error(`\n [bot.onTurnError] unhandled error: ${error}`);
+    console.error(`\n [bot.onTurnError] unhandled error: ${error}`);
     await context.sendTraceActivity("OnTurnError Trace", `${error}`, "https://www.botframework.com/schemas/error", "TurnError");
     await context.sendActivity("bot error");
 };
@@ -98,7 +98,7 @@ console.error(`\n [bot.onTurnError] unhandled error: ${error}`);
 const bot = new PlanetBot();
 express.post("/api/messages", (request, response) => {
     botAdapter.process(request, response, async (context) => {
-        console.log("CIAO");
+        console.log("Bot adapter process...");
         await bot.run(context);
     });
 });

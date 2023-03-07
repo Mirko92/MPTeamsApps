@@ -1,14 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
   "manifestVersion": "1.13",
-  "id": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
-  "version": "1.2",
+  "id": "d98299a9-1b6a-4c03-9c08-d9b679e601b2",
+  "version": "1.7.0",
   "packageName": "MS600_TEAMS_MSG_EXT",
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://8a0c-95-74-29-202.ngrok.io",
-    "privacyUrl": "https://8a0c-95-74-29-202.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://8a0c-95-74-29-202.ngrok.io/tou.html"
+    "websiteUrl": "https://e766-95-74-28-90.ngrok.io",
+    "privacyUrl": "https://e766-95-74-28-90.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://e766-95-74-28-90.ngrok.io/tou.html"
   },
   "name": {
     "short": "MS600_TEAMS_MSG_EXT",
@@ -31,6 +31,7 @@
     {
       "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
       "canUpdateConfiguration": false,
+      
       "commands": [
         {
           "id": "planetExpanderAction",
@@ -42,16 +43,46 @@
             "message"
           ],
           "fetchTask": true
+        },
+        {
+          "id": "planetExpanderSearch",
+          "type": "query",
+          "title": "Planet Lookup",
+          "description": "Search for a planet.",
+          "context": [
+            "compose"
+          ],
+          "parameters": [{
+            "title": "Planet",
+            "name": "searchKeyword",
+            "description": "Enter 'inner','outer' or the name of a specific planet"
+          }],
+          "initialRun": false
+        }
+      ],
+
+      "messageHandlers": [
+        {
+          "type": "link",
+          "value": {
+            "domains": [
+              "https://mirkopetrelli.io",
+              "mirkopetrelli.io"
+            ]
+          }
         }
       ]
     }
+    
   ],
   "permissions": [
     "identity",
     "messageTeamMembers"
   ],
   "validDomains": [
-    "8a0c-95-74-29-202.ngrok.io"
+    "",
+    "https://mirkopetrelli.io",
+    "mirkopetrelli.io"
   ],
   "showLoadingIndicator": true
 }

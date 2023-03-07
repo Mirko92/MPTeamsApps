@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
   "manifestVersion": "1.13",
-  "id": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
-  "version": "1.2",
+  "id": "d98299a9-1b6a-4c03-9c08-d9b679e601b2",
+  "version": "1.7.0",
   "packageName": "MS600_TEAMS_MSG_EXT",
   "developer": {
     "name": "Mirko Petrelli",
@@ -28,12 +28,11 @@
   "bots": [],
   "connectors": [],
   "composeExtensions": [
-
     {
       "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
       "canUpdateConfiguration": false,
+      
       "commands": [
-        // ACTION command messaging extensions
         {
           "id": "planetExpanderAction",
           "type": "action",
@@ -45,8 +44,6 @@
           ],
           "fetchTask": true
         },
-
-        // SEARCH command messaging extensions
         {
           "id": "planetExpanderSearch",
           "type": "query",
@@ -62,6 +59,18 @@
           }],
           "initialRun": false
         }
+      ],
+
+      "messageHandlers": [
+        {
+          "type": "link",
+          "value": {
+            "domains": [
+              "https://mirkopetrelli.io",
+              "mirkopetrelli.io"
+            ]
+          }
+        }
       ]
     }
     
@@ -71,7 +80,9 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "{{PUBLIC_HOSTNAME}}"
+    "{{HOSTNAME}}",
+    "https://mirkopetrelli.io",
+    "mirkopetrelli.io"
   ],
   "showLoadingIndicator": true
 }
