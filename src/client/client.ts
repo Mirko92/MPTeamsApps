@@ -7,3 +7,5 @@ import * as React from "react";
 export const render = (type: any, element: HTMLElement) => {
     ReactDOM.render(React.createElement(type, {}), element);
 };
+
+export * from "./MS600TAB_PERSONAL/MS600TAB_PERSONAL";

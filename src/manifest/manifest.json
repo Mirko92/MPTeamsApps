@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
   "manifestVersion": "1.13",
   "id": "d98299a9-1b6a-4c03-9c08-d9b679e601b2",
-  "version": "1.7.0",
+  "version": "1.7.2",
   "packageName": "MS600_TEAMS_MSG_EXT",
   "developer": {
     "name": "Mirko Petrelli",
@@ -11,12 +11,12 @@
     "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
   },
   "name": {
-    "short": "MS600_TEAMS_MSG_EXT",
-    "full": "MS600_TEAMS_MSG_EXT"
+    "short": "MS600 LAB",
+    "full": "MS600 Teams Lab: Msg Exts; Personal Tab;"
   },
   "description": {
-    "short": "Descrizione breve",
-    "full": "Descrizione lunga"
+    "short": "MS600 LAB",
+    "full": "A comprehensive solution of Messaging Extensions (Search, Action, Query, Unfurling) and Personal Tab"
   },
   "icons": {
     "outline": "icon-outline.png",
@@ -24,7 +24,18 @@
   },
   "accentColor": "#D85028",
   "configurableTabs": [],
-  "staticTabs": [],
+
+  "staticTabs": [
+    {
+      "entityId": "370c8f51-6737-41f7-9986-161bd345589f",
+      "name": "MS600TAB_PERSONAL",
+      "contentUrl": "https://{{PUBLIC_HOSTNAME}}/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  
   "bots": [],
   "connectors": [],
   "composeExtensions": [
