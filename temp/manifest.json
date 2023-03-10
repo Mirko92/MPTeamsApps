@@ -1,35 +1,53 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
   "manifestVersion": "1.13",
-  "id": "d98299a9-1b6a-4c03-9c08-d9b679e601b2",
-  "version": "1.7.2",
-  "packageName": "MS600_TEAMS_MSG_EXT",
+
+  "id": "1bbee628-2494-4e99-953a-a2f70ead51f8",
+  "version": "1.0.0",
+  "packageName": "MP_MS600_TEAMS_PACKAGE",
+
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://7362-95-74-28-90.ngrok.io",
-    "privacyUrl": "https://7362-95-74-28-90.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://7362-95-74-28-90.ngrok.io/tou.html"
+    "websiteUrl": "https://1707-95-74-28-149.ngrok.io",
+    "privacyUrl": "https://1707-95-74-28-149.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://1707-95-74-28-149.ngrok.io/tou.html"
   },
+
   "name": {
-    "short": "MS600 LAB",
+    "short": "MP TEAMS APPS",
     "full": "MS600 Teams Lab: Msg Exts; Personal Tab;"
   },
+
   "description": {
-    "short": "MS600 LAB",
+    "short": "MP TEAMS APPS",
     "full": "A comprehensive solution of Messaging Extensions (Search, Action, Query, Unfurling) and Personal Tab"
   },
+
   "icons": {
     "outline": "icon-outline.png",
     "color": "icon-color.png"
   },
-  "accentColor": "#D85028",
-  "configurableTabs": [],
+
+  "accentColor": "#30e3d4",
+  
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://1707-95-74-28-149.ngrok.io/MS600ConfigTab/config.html",
+      "canUpdateConfiguration": true,
+      "scopes": [ "team" ],
+      "sharePointPreviewImage": "https://1707-95-74-28-149.ngrok.io/assets/MS600ConfigTab-preview.png",
+      "supportedSharePointHosts": [ 
+        "sharePointFullPage", 
+        "sharePointWebPart" 
+      ]
+    }
+  ],
 
   "staticTabs": [
     {
-      "entityId": "370c8f51-6737-41f7-9986-161bd345589f",
+      "entityId": "c076fc7c-dc02-4923-b9e1-b145e299a116",
       "name": "MS600TAB_PERSONAL",
-      "contentUrl": "https://7362-95-74-28-90.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
+      "contentUrl": "https://1707-95-74-28-149.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
       "scopes": [
         "personal"
       ]
@@ -45,8 +63,8 @@
       
       "commands": [
         {
-          "id": "planetExpanderAction",
-          "type": "action",
+          "id"   : "planetExpanderAction",
+          "type" : "action",
           "title": "Planet Expander",
           "description": "Lookup the details of a planet.",
           "context": [
@@ -56,19 +74,19 @@
           "fetchTask": true
         },
         {
-          "id": "planetExpanderSearch",
-          "type": "query",
+          "id"   : "planetExpanderSearch",
+          "type" : "query",
           "title": "Planet Lookup",
           "description": "Search for a planet.",
+          "initialRun" : false,
           "context": [
             "compose"
           ],
           "parameters": [{
             "title": "Planet",
-            "name": "searchKeyword",
+            "name" : "searchKeyword",
             "description": "Enter 'inner','outer' or the name of a specific planet"
-          }],
-          "initialRun": false
+          }]
         }
       ],
 
@@ -78,7 +96,8 @@
           "value": {
             "domains": [
               "https://mirkopetrelli.io",
-              "mirkopetrelli.io"
+              "mirkopetrelli.io",
+              "*.mirkopetrelli.io"
             ]
           }
         }
@@ -86,14 +105,18 @@
     }
     
   ],
+
   "permissions": [
     "identity",
     "messageTeamMembers"
   ],
+
   "validDomains": [
-    "",
+    "1707-95-74-28-149.ngrok.io",
     "https://mirkopetrelli.io",
-    "mirkopetrelli.io"
+    "mirkopetrelli.io",
+    "*.mirkopetrelli.io"
   ],
+  
   "showLoadingIndicator": true
 }
