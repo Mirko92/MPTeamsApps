@@ -5,14 +5,6 @@
   "id": "1bbee628-2494-4e99-953a-a2f70ead51f8",
   "version": "1.0.0",
   "packageName": "MP_MS600_TEAMS_PACKAGE",
-
-  "developer": {
-    "name": "Mirko Petrelli",
-    "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
-    "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
-    "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
-  },
-
   "name": {
     "short": "MP TEAMS APPS",
     "full": "MS600 Teams Lab: Msg Exts; Personal Tab;"
@@ -27,8 +19,14 @@
     "outline": "icon-outline.png",
     "color": "icon-color.png"
   },
-
   "accentColor": "#30e3d4",
+
+  "developer": {
+    "name": "Mirko Petrelli",
+    "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
+    "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
+    "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
+  },
   
   "configurableTabs": [
     {
@@ -98,7 +96,8 @@
               "https://mirkopetrelli.io",
               "mirkopetrelli.io",
               "*.mirkopetrelli.io"
-            ]
+            ],
+            "supportsAnonymizedPayloads": false
           }
         }
       ]
@@ -117,6 +116,6 @@
     "mirkopetrelli.io",
     "*.mirkopetrelli.io"
   ],
-  
+
   "showLoadingIndicator": true
 }
