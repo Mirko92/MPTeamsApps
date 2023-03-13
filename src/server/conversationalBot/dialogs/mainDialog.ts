@@ -21,6 +21,8 @@ import { MentionUserDialog } from "./mentionUserDialog";
 const MAIN_DIALOG_ID = "mainDialog";
 const MAIN_WATERFALL_DIALOG_ID = "mainWaterfallDialog";
 
+const log = (msg: string) => console.log(`###################### MainDialog ${msg} ######################`)
+
 export class MainDialog extends ComponentDialog {
     public onboarding: boolean;
     constructor() {
@@ -60,12 +62,15 @@ export class MainDialog extends ComponentDialog {
     }
 
     private async actStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
+        log("actStep")
         if (stepContext.result) {
             /*
             ** This is where you would add LUIS to your bot, see this link for more information:
             ** https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-luis?view=azure-bot-service-4.0&tabs=javascript
             */
             const result = stepContext.result.trim().toLocaleLowerCase();
+            log("actStep result: " + result);
+
             switch (result) {
                 case "who" :
                 case "who am i?": {
@@ -85,14 +90,24 @@ export class MainDialog extends ComponentDialog {
                 }
             }
         } else if (this.onboarding) {
-            switch (stepContext.context.activity.text) {
+            log("actStep onboarding " + stepContext.context.activity.text);
+
+            const text = stepContext.context.activity.text
+                .replace(/<at>MP TEAMS APPS<\/at>/ig, "")
+                .toLocaleLowerCase()
+                .trim();
+
+            log("actStep onboarding " + text);
+
+            switch (text) {
                 case "who": {
                     return await stepContext.beginDialog("teamsInfoDialog");
                 }
                 case "help": {
                     return await stepContext.beginDialog("helpDialog");
                 }
-                case "mention": {
+                case "mention":
+                case "mention me": {
                     return await stepContext.beginDialog("mentionUserDialog");
                 }
                 default: {
