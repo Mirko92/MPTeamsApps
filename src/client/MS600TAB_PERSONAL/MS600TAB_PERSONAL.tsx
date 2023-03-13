@@ -13,6 +13,7 @@ import {
   Label,
   Input,
   ToDoListIcon,
+  Checkbox,
 } from "@fluentui/react-northstar";
 
 import { useState, useEffect } from "react";
@@ -22,9 +23,9 @@ import { UserProfile } from "../components/UserProfile";
 import { UserEmails } from "../components/UserEmails";
 
 const CenteredWithPadding: React.CSSProperties = {
-  padding : "1rem",
+  padding: "1rem",
   maxWidth: "80vw",
-  margin  : "0 auto"
+  margin: "0 auto",
 };
 
 /**
@@ -32,8 +33,11 @@ const CenteredWithPadding: React.CSSProperties = {
  */
 export const MS600TAB_PERSONAL = () => {
   //#region YouTube Player (Task module example)
-  const [youTubeVideoId, setYouTubeVideoId] = useState<string | undefined>("VlEH4vtaxp4");
-  
+  const [youTubeVideoId, setYouTubeVideoId] = useState<string | undefined>(
+    "VlEH4vtaxp4"
+  );
+  const [useCard, setUseCard] = useState<boolean>(false);
+
   const appRoot = (): string => {
     if (typeof window === "undefined") {
       return "https://{{HOSTNAME}}";
@@ -46,26 +50,29 @@ export const MS600TAB_PERSONAL = () => {
     const dialogInfo: UrlDialogInfo = {
       title: "YouTube Player",
       url: appRoot() + `/MS600TAB_PERSONAL/player.html?vid=${youTubeVideoId}`,
-      fallbackUrl: appRoot() + `/MS600TAB_PERSONAL/player.html?vid=${youTubeVideoId}`,
+      fallbackUrl:
+        appRoot() + `/MS600TAB_PERSONAL/player.html?vid=${youTubeVideoId}`,
       size: {
         width: 1000,
-        height: 700
-      }
+        height: 700,
+      },
     };
 
     dialog.url.open(dialogInfo);
   };
-  
+
   const onChangeVideo = (): void => {
     const dialogInfo = {
       title: "YouTube Video Selector",
-      url: appRoot() + `/MS600TAB_PERSONAL/selector.html?theme={theme}&vid=${youTubeVideoId}`,
+      url:
+        appRoot() +
+        `/MS600TAB_PERSONAL/selector.html?theme={theme}&vid=${youTubeVideoId}`,
       size: {
         width: 350,
-        height: 150
-      }
+        height: 150,
+      },
     };
-    
+
     const submitHandler: dialog.DialogSubmitHandler = (response) => {
       console.log(`Submit handler - err: ${response.err}`);
       setYouTubeVideoId(response.result?.toString());
@@ -130,79 +137,82 @@ export const MS600TAB_PERSONAL = () => {
 
   return (
     <Provider theme={theme}>
-
-      {
-        inTeams && <>
-          <Flex column gap="gap.smaller" style={CenteredWithPadding}>
-            <Flex.Item>
-              <div>
-                <div>
-                  <Text>YouTube Video ID:</Text>
-                  <Input value={youTubeVideoId} disabled></Input>
-                </div>
-                <div>
-                  <Button content="Change Video ID" onClick={() => onChangeVideo()}></Button>
-                  <Button content="Show Video" primary onClick={() => onShowVideo()}></Button>
-                </div>
-              </div>
-            </Flex.Item>
-
-            <Flex.Item styles={{
-              padding: ".8rem 0 .8rem .5rem"
-            }}>
-              <Text content="(C) Copyright Contoso" size="smaller"></Text>
-            </Flex.Item>
-          </Flex>
-
-          <UserProfile />
-          <UserEmails />
-        </>
-      }
-      
       <Flex column gap="gap.smaller" style={CenteredWithPadding}>
-        <Header content="This is your tab" />
+        <Header content="Personal TAB" />
         <Alert
           icon={<ExclamationTriangleIcon />}
-          content={entityId}
+          content={`EntityID: ${entityId}`}
           dismissible
-        ></Alert>
-        <Text content="These are your to-do items:" size="medium"></Text>
-        <List selectable>
-          {todoItems.map((todoItem, i) => (
-            <List.Item
-              key={i}
-              media={<WindowMaximizeIcon outline />}
-              content={todoItem}
-              index={i}
-            ></List.Item>
-          ))}
-        </List>
-
-        <Flex gap="gap.medium">
-          <Flex.Item grow>
-            <Flex>
-              <Label
-                icon={<ToDoListIcon />}
-                styles={{
-                  background: "darkgray",
-                  height: "auto",
-                  padding: "0 15px",
-                }}
-              ></Label>
-              <Flex.Item grow>
-                <Input
-                  placeholder="New todo item"
-                  fluid
-                  value={newTodoValue}
-                  onChange={handleOnChanged}
-                ></Input>
-              </Flex.Item>
-            </Flex>
-          </Flex.Item>
-          <Button content="Add Todo" primary onClick={handleOnClick}></Button>
-        </Flex>
-        <Text content="(C) Copyright Contoso" size="smallest"></Text>
+        />
       </Flex>
+
+      {inTeams && (
+        <>
+          <Flex column gap="gap.smaller" style={CenteredWithPadding}>
+            <fieldset>
+              <legend>TASK MODULES</legend>
+
+              <Flex.Item>
+                <div>
+                  <div>
+                    <Flex column gap="gap.smaller">
+                      <Flex.Item>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <Checkbox
+                            label="Use Card"
+                            checked={useCard}
+                            onChange={() => setUseCard((u) => !u)}
+                          />
+                          <strong>
+                            {useCard
+                              ? `I'll use Card`
+                              : `I'll use an html page`}
+                          </strong>
+                        </div>
+                      </Flex.Item>
+
+                      <Flex.Item>
+                        <div>
+                          <Text style={{marginRight: "1rem"}}>YouTube Video ID:</Text>
+                          <Input value={youTubeVideoId} disabled></Input>
+                        </div>
+                      </Flex.Item>
+                    </Flex>
+                  </div>
+                  <Flex gap="gap.smaller">
+                    <Button
+                      content="Change Video ID"
+                      style={{marginRight: "1rem"}}
+                      onClick={() => onChangeVideo()}
+                    />
+                    <Button
+                      primary
+                      content="Show Video"
+                      onClick={() => onShowVideo()}
+                    />
+                  </Flex>
+                </div>
+              </Flex.Item>
+
+              <Flex.Item
+                styles={{
+                  padding: ".8rem 0 .8rem .5rem",
+                }}
+              >
+                <Text content="(C) Copyright Contoso" size="smaller"></Text>
+              </Flex.Item>
+            </fieldset>
+          </Flex>
+
+          <Flex column gap="gap.smaller" style={CenteredWithPadding}>
+            <UserProfile />
+          </Flex>
+
+          <Flex column gap="gap.smaller" style={CenteredWithPadding}>
+            <UserEmails />
+          </Flex>
+        </>
+      )}
     </Provider>
   );
 };
