@@ -1,9 +1,12 @@
 import { BotDeclaration } from "express-msteams-host";
 import * as debug from "debug";
-import { CardFactory, ConversationState, MemoryStorage, UserState, TurnContext } from "botbuilder";
+import { CardFactory, ConversationState, MemoryStorage, UserState, TurnContext, AdaptiveCardInvokeValue, AdaptiveCardInvokeResponse, StatusCodes } from "botbuilder";
 import { DialogBot } from "./dialogBot";
 import { MainDialog } from "./dialogs/mainDialog";
 import WelcomeCard from "./cards/welcomeCard";
+
+import ResponseCard from "./cards/responseCard";
+import * as ACData from "adaptivecards-templating";
 
 // Initialize debug logging module
 const log = debug("msteams");
@@ -36,6 +39,23 @@ export class ConversationalBot extends DialogBot {
       }
       await next();
     });
+
+    this.onMessageReaction( this._onMessageReaction );
+  }
+
+  private _onMessageReaction = async (context: TurnContext, next: () => Promise<void>) => {
+    try {
+      if (context.activity.reactionsAdded) {
+        context.activity.reactionsAdded.forEach(async (reaction) => {
+          if (reaction.type === "like") {
+            await context.sendActivity("Thank you!");
+          }
+        });
+      }
+      await next();
+    } catch (error) {
+      log("onMessageReaction: error\n", error);
+    }
   }
 
   public async sendWelcomeCard(context: TurnContext): Promise<void> {
@@ -43,4 +63,54 @@ export class ConversationalBot extends DialogBot {
     await context.sendActivity({ attachments: [welcomeCard] });
   }
 
+  protected async onAdaptiveCardInvoke(context: TurnContext, invokeValue: AdaptiveCardInvokeValue): Promise<any> {
+    let cardResponse: AdaptiveCardInvokeResponse;
+  
+    try {
+      const verb = invokeValue.action.verb;
+      log(`onAdaptiveCardInvoke verb: '${verb}'`);
+      switch (verb) {
+        case "update":
+          {
+            let clickCount: number = invokeValue.action.data.count as number;
+            const cardData = {
+              message: `Updated count: ${++clickCount}`,
+              count: clickCount,
+              showDelete: true
+            };
+            const template = new ACData.Template(ResponseCard);
+            const context: ACData.IEvaluationContext = {
+              $root: cardData
+            };
+            const acCard = template.expand(context);
+  
+            cardResponse = {
+              statusCode: StatusCodes.OK,
+              type: "application/vnd.microsoft.card.adaptive",
+              value: acCard
+            } as unknown as AdaptiveCardInvokeResponse;
+  
+          }
+          break;
+  
+        case "delete":
+          await context.deleteActivity(context!.activity!.replyToId!);
+          return Promise.resolve({
+            statusCode: 200,
+            type: "application/vnd.microsoft.activity.message",
+            value: "Deleting activity..."
+          });
+  
+        default:
+          return Promise.resolve({
+            statusCode: 200,
+            type: "application/vnd.microsoft.activity.message",
+            value: "I don't know how to process that verb"
+          });
+      }
+      return Promise.resolve(cardResponse);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
