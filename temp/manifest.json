@@ -23,17 +23,17 @@
 
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://08d9-176-201-125-214.ngrok.io",
-    "privacyUrl": "https://08d9-176-201-125-214.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://08d9-176-201-125-214.ngrok.io/tou.html"
+    "websiteUrl": "https://3439-176-201-125-214.ngrok.io",
+    "privacyUrl": "https://3439-176-201-125-214.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://3439-176-201-125-214.ngrok.io/tou.html"
   },
   
   "configurableTabs": [
     {
-      "configurationUrl": "https://08d9-176-201-125-214.ngrok.io/MS600ConfigTab/config.html",
+      "configurationUrl": "https://3439-176-201-125-214.ngrok.io/MS600ConfigTab/config.html",
       "canUpdateConfiguration": true,
       "scopes": [ "team" ],
-      "sharePointPreviewImage": "https://08d9-176-201-125-214.ngrok.io/assets/MS600ConfigTab-preview.png",
+      "sharePointPreviewImage": "https://3439-176-201-125-214.ngrok.io/assets/MS600ConfigTab-preview.png",
       "supportedSharePointHosts": [ 
         "sharePointFullPage", 
         "sharePointWebPart" 
@@ -45,7 +45,7 @@
     {
       "entityId": "c076fc7c-dc02-4923-b9e1-b145e299a116",
       "name": "MS600TAB_PERSONAL",
-      "contentUrl": "https://08d9-176-201-125-214.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
+      "contentUrl": "https://3439-176-201-125-214.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
       "scopes": [
         "personal"
       ]
@@ -146,7 +146,7 @@
   ],
 
   "validDomains": [
-    "08d9-176-201-125-214.ngrok.io",
+    "3439-176-201-125-214.ngrok.io",
     "https://mirkopetrelli.io",
     "mirkopetrelli.io",
     "*.mirkopetrelli.io"

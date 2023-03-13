@@ -1,6 +1,6 @@
 import { BotDeclaration } from "express-msteams-host";
 import * as debug from "debug";
-import { CardFactory, ConversationState, MemoryStorage, UserState, TurnContext, AdaptiveCardInvokeValue, AdaptiveCardInvokeResponse, StatusCodes } from "botbuilder";
+import { CardFactory, ConversationState, MemoryStorage, UserState, TurnContext, AdaptiveCardInvokeValue, AdaptiveCardInvokeResponse, StatusCodes, MessageFactory, Activity, BotFrameworkAdapter, ConversationParameters, teamsGetChannelId } from "botbuilder";
 import { DialogBot } from "./dialogBot";
 import { MainDialog } from "./dialogs/mainDialog";
 import WelcomeCard from "./cards/welcomeCard";
@@ -92,6 +92,17 @@ export class ConversationalBot extends DialogBot {
   
           }
           break;
+
+        case "newconversation":
+        {
+          const message = MessageFactory.text("This will be the first message in a new thread");
+          await this.teamsCreateConversation(context, message);
+          return Promise.resolve({
+            statusCode: 200,
+            type: "application/vnd.microsoft.activity.message",
+            value: "Thread created"
+          });
+        }
   
         case "delete":
           await context.deleteActivity(context!.activity!.replyToId!);
@@ -112,5 +123,27 @@ export class ConversationalBot extends DialogBot {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  private async teamsCreateConversation(context: TurnContext, message: Partial<Activity>): Promise<void> {
+    // get a reference to the bot adapter & create a connection to the Teams API
+    const adapter = <BotFrameworkAdapter>context.adapter;
+    const connectorClient = adapter.createConnectorClient(context.activity.serviceUrl);
+  
+    // set current teams channel in new conversation parameters
+    const teamsChannelId = teamsGetChannelId(context.activity);
+    const conversationParameters: ConversationParameters = {
+      isGroup: true,
+      channelData: {
+        channel: {
+          id: teamsChannelId
+        }
+      },
+      activity: message as Activity,
+      bot: context.activity.recipient
+    };
+  
+    // create conversation and send message
+    await connectorClient.conversations.createConversation(conversationParameters);
   }
 }
