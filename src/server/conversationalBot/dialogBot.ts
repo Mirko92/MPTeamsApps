@@ -11,12 +11,15 @@ export class DialogBot extends TeamsActivityHandler {
 
     constructor(public conversationState: ConversationState, public userState: UserState, public dialog: MainDialog) {
         super();
+        console.log(`###################### DialogBot constructor ######################`);
+
         this.conversationState = conversationState;
         this.userState = userState;
         this.dialog = dialog;
         this.dialogState = this.conversationState.createProperty("DialogState");
 
         this.onMessage(async (context, next) => {
+            console.log(`###################### DialogBot onMessage ######################`);
             // Run the MainDialog with the new message Activity.
             await this.dialog.run(context, this.dialogState);
             await next();

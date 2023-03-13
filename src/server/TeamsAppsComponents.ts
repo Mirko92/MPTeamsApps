@@ -2,7 +2,8 @@
 
 export const nonce = {}; // Do not remove!
 
-export * from "./planetBot/planetBot";
+// export * from "./planetBot/planetBot";
+
 export * from "./MS600TAB_PERSONAL/MS600TAB_PERSONAL";
 export * from "./MS600ConfigTab/MS600ConfigTab";
 

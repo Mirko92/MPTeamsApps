@@ -14,17 +14,24 @@ import {
   MessagingExtensionResult,
 
   // LINK
-  AppBasedLinkQuery
+  AppBasedLinkQuery,
+  MemoryStorage
 } from "botbuilder";
 
 import * as Util  from "util";
 import * as debug from "debug";
 import { IPlanet } from "./IPlanet";
-import { ContainerState } from "@microsoft/teams-js";
+import { BotDeclaration } from "express-msteams-host";
 
 const TextEncoder = Util.TextEncoder;
 const log = debug("msteams");
 
+@BotDeclaration(
+  "/api/messages",
+  new MemoryStorage(),
+  process.env.MICROSOFT_APP_ID,
+  process.env.MICROSOFT_APP_PASSWORD
+)
 export class PlanetBot extends TeamsActivityHandler {
 
   //#region ACTION

@@ -3,7 +3,7 @@
   "manifestVersion": "1.13",
 
   "id": "1bbee628-2494-4e99-953a-a2f70ead51f8",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "packageName": "MP_MS600_TEAMS_PACKAGE",
   "name": {
     "short": "MP TEAMS APPS",
@@ -23,17 +23,17 @@
 
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://2087-95-74-28-149.ngrok.io",
-    "privacyUrl": "https://2087-95-74-28-149.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://2087-95-74-28-149.ngrok.io/tou.html"
+    "websiteUrl": "https://b1a5-176-201-125-214.ngrok.io",
+    "privacyUrl": "https://b1a5-176-201-125-214.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://b1a5-176-201-125-214.ngrok.io/tou.html"
   },
   
   "configurableTabs": [
     {
-      "configurationUrl": "https://2087-95-74-28-149.ngrok.io/MS600ConfigTab/config.html",
+      "configurationUrl": "https://b1a5-176-201-125-214.ngrok.io/MS600ConfigTab/config.html",
       "canUpdateConfiguration": true,
       "scopes": [ "team" ],
-      "sharePointPreviewImage": "https://2087-95-74-28-149.ngrok.io/assets/MS600ConfigTab-preview.png",
+      "sharePointPreviewImage": "https://b1a5-176-201-125-214.ngrok.io/assets/MS600ConfigTab-preview.png",
       "supportedSharePointHosts": [ 
         "sharePointFullPage", 
         "sharePointWebPart" 
@@ -45,15 +45,50 @@
     {
       "entityId": "c076fc7c-dc02-4923-b9e1-b145e299a116",
       "name": "MS600TAB_PERSONAL",
-      "contentUrl": "https://2087-95-74-28-149.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
+      "contentUrl": "https://b1a5-176-201-125-214.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
       "scopes": [
         "personal"
       ]
     }
   ],
   
-  "bots": [],
+  "bots": [
+    {
+      "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
+      "needsChannelSelector": true,
+      "isNotificationOnly": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "team",
+            "personal"
+          ],
+          "commands": [
+            {
+              "title": "Help",
+              "description": "Shows help information"
+            },
+            {
+              "title": "Who am I?",
+              "description": "Shows information about your Teams user"
+            },
+            {
+              "title": "Mention me",
+              "description": "Let the bot @mention you"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
   "connectors": [],
+
   "composeExtensions": [
     {
       "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
@@ -111,7 +146,7 @@
   ],
 
   "validDomains": [
-    "2087-95-74-28-149.ngrok.io",
+    "b1a5-176-201-125-214.ngrok.io",
     "https://mirkopetrelli.io",
     "mirkopetrelli.io",
     "*.mirkopetrelli.io"
