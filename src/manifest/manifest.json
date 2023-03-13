@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
   "manifestVersion": "1.13",
 
-  "id": "1bbee628-2494-4e99-953a-a2f70ead51f8",
-  "version": "1.0.1",
+  "id": "{{APPLICATION_ID}}",
+  "version": "{{VERSION}}",
   "packageName": "MP_MS600_TEAMS_PACKAGE",
   "name": {
     "short": "MP TEAMS APPS",
@@ -52,8 +52,43 @@
     }
   ],
   
-  "bots": [],
+  "bots": [
+    {
+      "botId": "{{MICROSOFT_APP_ID}}",
+      "needsChannelSelector": true,
+      "isNotificationOnly": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "team",
+            "personal"
+          ],
+          "commands": [
+            {
+              "title": "Help",
+              "description": "Shows help information"
+            },
+            {
+              "title": "Who am I?",
+              "description": "Shows information about your Teams user"
+            },
+            {
+              "title": "Mention me",
+              "description": "Let the bot @mention you"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
   "connectors": [],
+
   "composeExtensions": [
     {
       "botId": "d1c05781-bc0f-493a-b4f6-04214635a4ca",
