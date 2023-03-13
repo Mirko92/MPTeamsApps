@@ -8,9 +8,9 @@
         "browser": true,
         "es6": true
     },
-    "extends": [
-        "plugin:react/recommended"
-    ],
+    // "extends": [
+    //     "plugin:react/recommended"
+    // ],
     "plugins": [
         "react",
         "react-hooks"

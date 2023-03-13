@@ -18,6 +18,8 @@ import {
 import { useState, useEffect } from "react";
 import { useTeams } from "msteams-react-base-component";
 import { app } from "@microsoft/teams-js";
+import { UserProfile } from "../components/UserProfile";
+import { UserEmails } from "../components/UserEmails";
 
 const CenteredWithPadding: React.CSSProperties = {
   padding : "1rem",
@@ -63,8 +65,34 @@ export const MS600TAB_PERSONAL = () => {
     setNewTodoValue("");
   };
 
+
+
+
+  // const getAccessToken = async (promptConsent: boolean = false): Promise<string> => {
+  //   try {
+  //     const accessToken = await authentication.authenticate({
+  //       url: window.location.origin + "/auth-start.html",
+  //       width: 600,
+  //       height: 535
+  //     });
+  //     return Promise.resolve(accessToken);
+  //   } catch (error) {
+  //     return Promise.reject(error);
+  //   }
+  // };
+
+
+
   return (
     <Provider theme={theme}>
+
+      {
+        inTeams && <>
+          <UserProfile />
+          <UserEmails />
+        </>
+      }
+      
       <Flex column gap="gap.smaller" style={CenteredWithPadding}>
         <Header content="This is your tab" />
         <Alert
