@@ -17,7 +17,7 @@ import {
 
 import { useState, useEffect } from "react";
 import { useTeams } from "msteams-react-base-component";
-import { app } from "@microsoft/teams-js";
+import { app, dialog, UrlDialogInfo } from "@microsoft/teams-js";
 import { UserProfile } from "../components/UserProfile";
 import { UserEmails } from "../components/UserEmails";
 
@@ -31,6 +31,39 @@ const CenteredWithPadding: React.CSSProperties = {
  * Implementation of the Tab content page
  */
 export const MS600TAB_PERSONAL = () => {
+  //#region YouTube Player (Task module example)
+  const [youTubeVideoId, setYouTubeVideoId] = useState<string | undefined>("VlEH4vtaxp4");
+  
+  const appRoot = (): string => {
+    if (typeof window === "undefined") {
+      return "https://{{HOSTNAME}}";
+    } else {
+      return window.location.protocol + "//" + window.location.host;
+    }
+  };
+
+  const onShowVideo = (): void => {
+    const dialogInfo: UrlDialogInfo = {
+      title: "YouTube Player",
+      url: appRoot() + `/MS600TAB_PERSONAL/player.html?vid=${youTubeVideoId}`,
+      fallbackUrl: appRoot() + `/MS600TAB_PERSONAL/player.html?vid=${youTubeVideoId}`,
+      size: {
+        width: 1000,
+        height: 700
+      }
+    };
+
+    dialog.url.open(dialogInfo);
+  };
+  
+  const onChangeVideo = (): void => {
+
+  };
+
+  //#endregion
+
+  //#region PersonalTab example
+
   const [{ inTeams, theme, context }] = useTeams();
   const [entityId, setEntityId] = useState<string | undefined>();
 
@@ -64,10 +97,9 @@ export const MS600TAB_PERSONAL = () => {
     setTodoItems(newTodoItems);
     setNewTodoValue("");
   };
+  //#endregion
 
-
-
-
+  //#region Authentication example
   // const getAccessToken = async (promptConsent: boolean = false): Promise<string> => {
   //   try {
   //     const accessToken = await authentication.authenticate({
@@ -80,14 +112,34 @@ export const MS600TAB_PERSONAL = () => {
   //     return Promise.reject(error);
   //   }
   // };
-
-
+  //#endregion
 
   return (
     <Provider theme={theme}>
 
       {
         inTeams && <>
+          <Flex column gap="gap.smaller" style={CenteredWithPadding}>
+            <Flex.Item>
+              <div>
+                <div>
+                  <Text>YouTube Video ID:</Text>
+                  <Input value={youTubeVideoId} disabled></Input>
+                </div>
+                <div>
+                  <Button content="Change Video ID" onClick={() => onChangeVideo()}></Button>
+                  <Button content="Show Video" primary onClick={() => onShowVideo()}></Button>
+                </div>
+              </div>
+            </Flex.Item>
+
+            <Flex.Item styles={{
+              padding: ".8rem 0 .8rem .5rem"
+            }}>
+              <Text content="(C) Copyright Contoso" size="smaller"></Text>
+            </Flex.Item>
+          </Flex>
+
           <UserProfile />
           <UserEmails />
         </>

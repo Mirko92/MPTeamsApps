@@ -152,5 +152,5 @@
     "*.mirkopetrelli.io"
   ],
 
-  "showLoadingIndicator": true
+  "showLoadingIndicator": false
 }
