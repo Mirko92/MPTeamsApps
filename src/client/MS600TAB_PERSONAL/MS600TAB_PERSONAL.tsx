@@ -57,7 +57,21 @@ export const MS600TAB_PERSONAL = () => {
   };
   
   const onChangeVideo = (): void => {
+    const dialogInfo = {
+      title: "YouTube Video Selector",
+      url: appRoot() + `/MS600TAB_PERSONAL/selector.html?theme={theme}&vid=${youTubeVideoId}`,
+      size: {
+        width: 350,
+        height: 150
+      }
+    };
+    
+    const submitHandler: dialog.DialogSubmitHandler = (response) => {
+      console.log(`Submit handler - err: ${response.err}`);
+      setYouTubeVideoId(response.result?.toString());
+    };
 
+    dialog.url.open(dialogInfo, submitHandler);
   };
 
   //#endregion

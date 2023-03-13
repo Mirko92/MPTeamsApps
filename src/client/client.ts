@@ -9,7 +9,7 @@ export const render = (type: any, element: HTMLElement) => {
 };
 
 export * from "./MS600TAB_PERSONAL/MS600TAB_PERSONAL";
-
+export * from "./MS600TAB_PERSONAL/VideoSelectorTaskModule";
 
 export * from "./MS600ConfigTab/MS600ConfigTab";
 export * from "./MS600ConfigTab/MS600ConfigTabConfig";
