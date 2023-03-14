@@ -1,0 +1,26 @@
+.task_modules {
+  $self: &;
+  border: 1px solid rgb(91, 95, 199);
+  border-radius: 10px;
+
+  display: inline-flex;
+  justify-content: space-between;
+  min-width: 50vw;
+
+  &__config {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+  }
+}
+
+.yt_section {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+
+  &__video_info {
+    display: flex;
+    gap: 1rem;
+  }
+}

@@ -6,19 +6,15 @@ import {
   Text,
   Button,
   Header,
-  List,
   Alert,
-  WindowMaximizeIcon,
   ExclamationTriangleIcon,
-  Label,
   Input,
-  ToDoListIcon,
   Checkbox,
 } from "@fluentui/react-northstar";
 
 import { useState, useEffect } from "react";
 import { useTeams } from "msteams-react-base-component";
-import { app, dialog, UrlDialogInfo } from "@microsoft/teams-js";
+import { app, dialog, UrlDialogInfo, tasks, DialogInfo } from "@microsoft/teams-js";
 import { UserProfile } from "../components/UserProfile";
 import { UserEmails } from "../components/UserEmails";
 
@@ -34,9 +30,10 @@ const CenteredWithPadding: React.CSSProperties = {
 export const MS600TAB_PERSONAL = () => {
   //#region YouTube Player (Task module example)
   const [youTubeVideoId, setYouTubeVideoId] = useState<string | undefined>(
-    "VlEH4vtaxp4"
+    "mmw57bp8AGI"
   );
   const [useCard, setUseCard] = useState<boolean>(false);
+  const [formDisabled, setFormDisabled] = useState<boolean>(true);
 
   const appRoot = (): string => {
     if (typeof window === "undefined") {
@@ -61,7 +58,8 @@ export const MS600TAB_PERSONAL = () => {
     dialog.url.open(dialogInfo);
   };
 
-  const onChangeVideo = (): void => {
+
+  const openUrlDialog = (): void => {
     const dialogInfo = {
       title: "YouTube Video Selector",
       url:
@@ -79,6 +77,64 @@ export const MS600TAB_PERSONAL = () => {
     };
 
     dialog.url.open(dialogInfo, submitHandler);
+  }
+
+  
+  const openCardDialog = (): void => {
+    const card = require("./YouTubeSelectorCard.json");
+
+    card.body
+      .find(x => x.id === "FormContainer")
+      .items
+      .find(x => x.id === "youTubeVideoId")
+      .value = youTubeVideoId;
+
+    const taskModuleInfo: DialogInfo = {
+      title: "YouTube Video Selector",
+      width: 350,
+      height: 250,
+      card
+    };
+
+    tasks.startTask(taskModuleInfo, (err, result: { youTubeVideoId?: string }) => { 
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log(`openCardDialog YouTubeSelectorCard Result: `, result);
+
+      setYouTubeVideoId(result.youTubeVideoId);
+    });
+
+    // LA NUOVA VERSIONE NON SEMBRA FUNZIONARE 
+    // const submitHandler: dialog.DialogSubmitHandler = (response) => {
+    //   console.log(`Submit handler response`, response);
+    //   console.log(`Submit handler - err: ${response.err}`);
+    //   setYouTubeVideoId(response.result?.toString());
+    // };
+
+    // dialog.adaptiveCard.open(
+    //   {
+    //     title: "Card Dialog",
+    //     card: require("./YouTubeSelectorCard.json"),
+    //     size: {
+    //       width: 350,
+    //       height: 150,
+    //     }
+    //   }, 
+    //   submitHandler
+    // );
+  }
+
+  const onChangeVideo = (): void => {
+    console.log(`onChangeVideo`);
+
+    if (useCard) {
+      openCardDialog();
+    } else {
+      openUrlDialog();
+    }
   };
 
   //#endregion
@@ -137,7 +193,7 @@ export const MS600TAB_PERSONAL = () => {
 
   return (
     <Provider theme={theme}>
-      <Flex column gap="gap.smaller" style={CenteredWithPadding}>
+      <Flex column gap="gap.smaller" style={CenteredWithPadding} >
         <Header content="Personal TAB" />
         <Alert
           icon={<ExclamationTriangleIcon />}
@@ -149,58 +205,49 @@ export const MS600TAB_PERSONAL = () => {
       {inTeams && (
         <>
           <Flex column gap="gap.smaller" style={CenteredWithPadding}>
-            <fieldset>
-              <legend>TASK MODULES</legend>
+            <fieldset className="task_modules">
+              <legend>Task Modules Section</legend>
 
-              <Flex.Item>
-                <div>
-                  <div>
-                    <Flex column gap="gap.smaller">
-                      <Flex.Item>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <Checkbox
-                            label="Use Card"
-                            checked={useCard}
-                            onChange={() => setUseCard((u) => !u)}
-                          />
-                          <strong>
-                            {useCard
-                              ? `I'll use Card`
-                              : `I'll use an html page`}
-                          </strong>
-                        </div>
-                      </Flex.Item>
+              <section className="yt_section">
+                <b>Youtube Video Selection</b>
 
-                      <Flex.Item>
-                        <div>
-                          <Text style={{marginRight: "1rem"}}>YouTube Video ID:</Text>
-                          <Input value={youTubeVideoId} disabled></Input>
-                        </div>
-                      </Flex.Item>
-                    </Flex>
-                  </div>
-                  <Flex gap="gap.smaller">
-                    <Button
-                      content="Change Video ID"
-                      style={{marginRight: "1rem"}}
-                      onClick={() => onChangeVideo()}
-                    />
-                    <Button
-                      primary
-                      content="Show Video"
-                      onClick={() => onShowVideo()}
-                    />
-                  </Flex>
+                <div className="yt_section__video_info">
+                  <Text>YouTube Video ID:</Text>
+                  <Input value={youTubeVideoId} disabled={formDisabled} />
                 </div>
-              </Flex.Item>
 
-              <Flex.Item
-                styles={{
-                  padding: ".8rem 0 .8rem .5rem",
-                }}
-              >
-                <Text content="(C) Copyright Contoso" size="smaller"></Text>
-              </Flex.Item>
+                <div className="yt_section__actions">
+                  <Button
+                    content="Change Video ID"
+                    style={{ marginRight: "1rem" }}
+                    onClick={() => onChangeVideo()}
+                  />
+                  <Button
+                    primary
+                    content="Show Video"
+                    onClick={() => onShowVideo()}
+                  />
+                </div>
+              </section>
+
+              <section className="task_modules__config">
+                <b>Configuration</b>
+
+                <div>
+                  <Checkbox
+                    label="Use Card ( or html page)"
+                    checked={useCard}
+                    onChange={() => setUseCard((u) => !u)}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    label="Enable form"
+                    checked={!formDisabled}
+                    onChange={() => setFormDisabled((u) => !u)}
+                  />
+                </div>
+              </section>
             </fieldset>
           </Flex>
 

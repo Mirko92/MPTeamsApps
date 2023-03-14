@@ -1,3 +1,8 @@
+https://teams.microsoft.com/l/task/1bbee628-2494-4e99-953a-a2f70ead51f8?url=/MS600TAB_PERSONAL/selector.html&height=300&width=150&title=Titolo
+
+https://teams.microsoft.com/l/task/1bbee628-2494-4e99-953a-a2f70ead51f8?url=https://3ab8-176-201-125-214.ngrok.io/MS600TAB_PERSONAL/Selector.html&height=300&width=500&title=Selezione%20video
+
+
 # MS600_TEAMS_MSG_EXT - Microsoft Teams App
 
 Generate a Microsoft Teams application.
