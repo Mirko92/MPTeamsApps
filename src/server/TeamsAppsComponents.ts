@@ -11,3 +11,4 @@ export * from "./MS600ConfigTab/MS600ConfigTab";
 
 export * from "./conversationalBot/ConversationalBot";
 
+export * from "./MS600OutgoingWebhook/MS600OutgoingWebhook";

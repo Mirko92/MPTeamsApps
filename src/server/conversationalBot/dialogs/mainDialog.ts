@@ -21,6 +21,7 @@ import { MentionUserDialog } from "./mentionUserDialog";
 
 import ResponseCard from "../cards/responseCard";
 import * as ACData from "adaptivecards-templating";
+import { InvokeDialog } from "./invokeDialog";
 
 const MAIN_DIALOG_ID = "mainDialog";
 const MAIN_WATERFALL_DIALOG_ID = "mainWaterfallDialog";
@@ -31,10 +32,12 @@ export class MainDialog extends ComponentDialog {
   public onboarding: boolean;
   constructor() {
     super(MAIN_DIALOG_ID);
-    this.addDialog(new TextPrompt("TextPrompt"))
+    this
+      .addDialog(new TextPrompt("TextPrompt"))
       .addDialog(new TeamsInfoDialog())
       .addDialog(new HelpDialog())
       .addDialog(new MentionUserDialog())
+      .addDialog(new InvokeDialog())
       .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG_ID, [
         this.introStep.bind(this),
         this.actStep.bind(this),
@@ -120,6 +123,9 @@ export class MainDialog extends ComponentDialog {
         }
         case "help": {
           return await stepContext.beginDialog("helpDialog");
+        }
+        case "invoke": {
+          return await stepContext.beginDialog("invokeDialog");
         }
 
         case "mention me":

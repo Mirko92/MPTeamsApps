@@ -3,7 +3,7 @@
   "manifestVersion": "1.13",
 
   "id": "1bbee628-2494-4e99-953a-a2f70ead51f8",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "packageName": "MP_MS600_TEAMS_PACKAGE",
   "name": {
     "short": "MP TEAMS APPS",
@@ -23,17 +23,17 @@
 
   "developer": {
     "name": "Mirko Petrelli",
-    "websiteUrl": "https://3ab8-176-201-125-214.ngrok.io",
-    "privacyUrl": "https://3ab8-176-201-125-214.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://3ab8-176-201-125-214.ngrok.io/tou.html"
+    "websiteUrl": "https://msgext.azurewebsites.net",
+    "privacyUrl": "https://msgext.azurewebsites.net/privacy.html",
+    "termsOfUseUrl": "https://msgext.azurewebsites.net/tou.html"
   },
   
   "configurableTabs": [
     {
-      "configurationUrl": "https://3ab8-176-201-125-214.ngrok.io/MS600ConfigTab/config.html",
+      "configurationUrl": "https://msgext.azurewebsites.net/MS600ConfigTab/config.html",
       "canUpdateConfiguration": true,
       "scopes": [ "team" ],
-      "sharePointPreviewImage": "https://3ab8-176-201-125-214.ngrok.io/assets/MS600ConfigTab-preview.png",
+      "sharePointPreviewImage": "https://msgext.azurewebsites.net/assets/MS600ConfigTab-preview.png",
       "supportedSharePointHosts": [ 
         "sharePointFullPage", 
         "sharePointWebPart" 
@@ -45,7 +45,7 @@
     {
       "entityId": "c076fc7c-dc02-4923-b9e1-b145e299a116",
       "name": "MS600TAB_PERSONAL",
-      "contentUrl": "https://3ab8-176-201-125-214.ngrok.io/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
+      "contentUrl": "https://msgext.azurewebsites.net/MS600TAB_PERSONAL/?name={loginHint}&tenant={tid}&theme={theme}",
       "scopes": [
         "personal"
       ]
@@ -146,7 +146,7 @@
   ],
 
   "validDomains": [
-    "3ab8-176-201-125-214.ngrok.io",
+    "msgext.azurewebsites.net",
     "https://mirkopetrelli.io",
     "mirkopetrelli.io",
     "*.mirkopetrelli.io"

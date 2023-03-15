@@ -73,7 +73,10 @@ export const MS600TAB_PERSONAL = () => {
 
     const submitHandler: dialog.DialogSubmitHandler = (response) => {
       console.log(`Submit handler - err: ${response.err}`);
-      setYouTubeVideoId(response.result?.toString());
+      
+      if (response.result) {
+        setYouTubeVideoId(response.result?.toString());
+      }
     };
 
     dialog.url.open(dialogInfo, submitHandler);

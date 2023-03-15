@@ -60,6 +60,7 @@ export class DialogBot extends TeamsActivityHandler {
   private _onTeamsChannelCreatedEvent = async (channelInfo: ChannelInfo, teamInfo: TeamInfo, turnContext: TurnContext, next: () => Promise<void>): Promise<void> => {
     log(`_onTeamsChannelCreatedEvent`);
     
+    
     const card = CardFactory.adaptiveCard({});
     const message = MessageFactory.attachment(card);
     await turnContext.sendActivity(message);
